@@ -3,8 +3,8 @@ Sieve = nil
 
 pop = table.remove
 
-pred = (Fn) ->
-	(T, P) -> Fn T, Sieve.predicate P
+pred = (Fn) -> (T, P) -> Fn T, Sieve.predicate P
+invert = (Fn) -> (...) -> not Fn ...
 
 recurses = (Fn) ->
 	(A, B, Seen = {}) ->
@@ -49,6 +49,8 @@ Sieve = {
 
 	filter: pred (T, P) ->
 		[V for I, V in pairs T when P V, I, T]
+
+	reject: pred (T, P) -> Sieve.filter T, invert P
 
 	test: pred (Callback, P) ->
 		(...) -> Callback ... if P ...
