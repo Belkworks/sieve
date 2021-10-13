@@ -2,6 +2,7 @@
 Sieve = nil
 
 pop = table.remove
+push = table.insert
 
 pred = (Fn) -> (T, P) -> Fn T, Sieve.predicate P
 invert = (Fn) -> (...) -> not Fn ...
@@ -51,6 +52,14 @@ Sieve = {
 		[V for I, V in pairs T when P V, I, T]
 
 	reject: pred (T, P) -> Sieve.filter T, invert P
+
+	partition: pred (T, P) ->
+		Accept, Reject = {}, {}
+		for I, V in pairs T
+			R = if P V, I, T
+				Accept
+			else Reject
+			push R, V
 
 	test: pred (Callback, P) ->
 		(...) -> Callback ... if P ...
