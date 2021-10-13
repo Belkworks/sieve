@@ -64,6 +64,9 @@ Sieve = {
 	test: pred (Callback, P) ->
 		(...) -> Callback ... if P ...
 
+	findChild: (O, P) -> Sieve.find O\children!, P
+	filterChildren: (O, P) -> Sieve.filter O\children!, P
+
 }
 
 setmetatable Sieve, __call: (T, P) => Sieve.filter T, P
