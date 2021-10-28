@@ -84,6 +84,11 @@ Sieve = {
 	findChild: (O, P) -> Sieve.find O\children!, P
 	filterChildren: (O, P) -> Sieve.filter O\children!, P
 
+	Target: (Fn) ->
+		(...) -> (Fn ...), true
+
+	Any: -> -> true
+
 	Match: (Input) ->
 		switch type Input
 			when 'string', 'number', 'boolean', 'userdata'
