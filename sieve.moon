@@ -108,6 +108,33 @@ Sieve = {
 
 					true
 
+	scan: (Input, Rules) ->
+		RuleCount = #Rules
+		if RuleCount == 0
+			table.insert Rules, -> true
+
+		Index = 1
+		BestMatch = nil
+
+		for I, V in pairs Input
+			Rule = Rules[Index]
+			
+			isMatch, isTarget = Rule V, I, Input
+			if isMatch
+				if isTarget
+					BestMatch = {
+						key: I
+						value: V
+					}
+
+				if Index == RuleCount and BestMatch
+					return BestMatch
+
+				Index += 1
+			else
+				Index = 1
+				BestMatch = nil
+
 }
 
 setmetatable Sieve, __call: (T, P) => Sieve.filter T, P
