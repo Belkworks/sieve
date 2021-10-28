@@ -46,9 +46,15 @@ Sieve = {
 	find: pred (T, P) ->
 		return V, I for I, V in pairs T when P V, I, T
 
+	findValue: (T, V) ->
+		Sieve.find T, (R) -> R == V
+
 	indexOf: (T, P) -> 
 		V, I = Sieve.find T, P
 		I
+
+	indexOfValue: (T, V) ->
+		Sieve.indexOf T, (R) -> R == V
 
 	filter: pred (T, P) ->
 		[V for I, V in pairs T when P V, I, T]
