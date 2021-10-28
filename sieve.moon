@@ -30,6 +30,9 @@ partial = (Fn, ...) ->
 	Args = { ... }
 	(...) -> Fn (unpack Args), ...
 
+isArray = (T) ->
+	#T == #[K for K in pairs T]
+
 Sieve = {
 	predicate: (Any) ->
 		switch type Any
@@ -80,6 +83,30 @@ Sieve = {
 
 	findChild: (O, P) -> Sieve.find O\children!, P
 	filterChildren: (O, P) -> Sieve.filter O\children!, P
+
+	Match: (Input) ->
+		switch type Input
+			when 'string', 'number', 'boolean', 'userdata'
+				(Value, Index, Table) -> Value == Input
+
+			when 'function'
+				(...) -> (Input ...) and true
+
+			when 'table'
+				if isArray Input
+					return (Value) ->
+						(Sieve.indexOfValue Input, Value) and true
+
+				(Value, Index, Table) ->
+					if t = Input.type
+						Test = Sieve.Match t
+						return unless Test type Value
+
+					if i = Input.index
+						Test = Sieve.match i
+						return unless Test Index
+
+					true
 
 }
 
