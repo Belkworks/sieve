@@ -56,6 +56,12 @@ Sieve = {
 	indexOfValue: (T, V) ->
 		Sieve.indexOf T, (R) -> R == V
 
+	exists: (T, P) ->
+		(Sieve.indexOf T, P) != nil
+
+	valueExists: (T, V) ->
+		(Sieve.indexOfValue T, V) != nil
+
 	filter: pred (T, P) ->
 		[V for I, V in pairs T when P V, I, T]
 
