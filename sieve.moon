@@ -129,6 +129,10 @@ Sieve = {
 
 			Rule = Rules[RuleIndex]
 			return nil unless Rule
+
+			if (type Rule) != 'function'
+				Rule = Sieve.Match Rule
+				Rules[RuleIndex] = Rule
 			
 			isMatch, isTarget = Rule V, I, Input
 			if isMatch
