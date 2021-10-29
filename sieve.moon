@@ -111,6 +111,9 @@ Sieve = {
 						Test = Sieve.match i
 						return unless Test Index
 
+					if p = Input.passes
+						return unless p Value, Index, Table
+
 					true
 
 	scan: (Input, Rules) ->
